@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <title>h5 animation</title>
+    <style>
+        #testkeyframes{
+            width: 100px;
+            height: 100px;
+            background: darkviolet;
+            animation:change 2s linear infinite;
+            -webkit-animation:change 5s linear;
+            -o-animation:change 5s linear;
+
+            /*animation-fill-mode: forwards;*/
+
+            animation-delay: 3s;
+            -moz-animation-delay: 1s;
+            -o-animation-delay: 1s;
+                /*定义播放方向 normal reverse alternate(循环往复)*/
+            animation-direction: alternate;
+            -moz-animation-direction: reverse;
+            -o-animation-direction: normal;
+
+            /*animation-duration: ; 多长时间完成效果*/
+            /*animation-iteration-count: ;n/infinite 一共循环播放的次数或者无限次播放*/
+            /*animation-timing-function: ;规定动画的速度曲线
+                linear 从头到尾的速度是相同的
+                ease 动画以低速开始，然后加快，在结束前变慢
+                ease-in 以低速开始
+                ease-out 以低速结束
+                ease-in-out 以低速开始和结束
+                cubic-bezier(n,n,n,n) 在 cubic-bezier 函数中自己的值。可能的值是从 0 到 1 的数值
+            */
+            /*animation-fill-mode: 规定动画在播放之前或之后，其动画效果是否可见;
+                none | forwards | backwards | both;
+            */
+            /*animation-play-state: 规定动画是否正在运行或暂停。默认是 "running";paused  暂停*/
+        }
+        @keyframes change {
+            0%{
+                width: 200px;
+                height: 200px;
+                background: red;
+            }
+            50%{
+                width: 400px;
+                height: 400px;
+                background: green;
+            }
+            100%{
+                width: 200px;
+                height: 200px;
+                background: yellow;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="testkeyframes">
+
+    </div>
+</body>
+</html>

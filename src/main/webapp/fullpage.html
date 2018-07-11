@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <title>myh5fullpage</title>
+    <link rel="stylesheet" href="css/jquery.fullPage.css">
+    <style>
+        .section1 h3 { position: relative; bottom: -100%;}
+        .section2 h3 { position: relative; left: -100%;}
+        .section3 h3 { position: relative; display: none;}
+
+        /*定义字体显示样式*/
+        .section {
+            text-align: center;
+            font: 50px "Microsoft Yahei";
+            color: #fff;
+        }
+        /*修改navigation的颜色样式*/
+        #fp-nav ul li a.active span, .fp-slidesNav ul li a.active span {
+            background: greenyellow; /*这里设置的是活动导航的颜色*/
+        }
+        #fp-nav ul li a span, .fp-slidesNav ul li a span {
+            border: 1px solid #fff;/*这里设置的是非活动导航的颜色*/
+        }
+        /*给每个屏添加背景图片*/
+        .section1{
+            background: url("images/1.jpg") no-repeat 50%;
+        }
+        .section2{
+            background: url("images/2.jpg") no-repeat 50%;
+        }
+        .section3{
+            background: url("images/3.jpg") no-repeat 50%;
+        }
+        .section4{
+            background: url("images/4.jpg") no-repeat 50%;
+        }
+        .section4 h3{
+            transform: translateY(800px);
+        }
+        .section5{
+            background-color: #4BBFC3;
+        }
+
+        /*
+        模拟火星撞地球的效果
+        */
+        .section5{
+            position: relative;
+        }
+        .section5 .balls{
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .rightdiv{
+            width: 100px;
+            height: 100px;
+            background: yellow;
+            border-radius: 50px;
+
+            transform: translateX(800px);
+        }
+        .leftdiv{
+            width: 100px;
+            height: 100px;
+            background: red;
+            border-radius: 50px;
+
+            transform: translateX(-800px);
+        }
+
+        .ballsback{
+            -webkit-transition: cubic-bezier(.6,.17,0,1.73) 1s !important;
+            -moz-transition: cubic-bezier(.6,.17,0,1.73) 1s !important;
+            -ms-transition: cubic-bezier(.6,.17,0,1.73) 1s !important;
+            transition: cubic-bezier(.6,.17,0,1.73) 1s !important;
+
+            transform: translateX(0) !important;
+        }
+        .h3back{
+            -webkit-transition: cubic-bezier(.6,.17,0,1.73) 1.5s !important;
+            -moz-transition: cubic-bezier(.6,.17,0,1.73) 1.5s !important;
+            -ms-transition: cubic-bezier(.6,.17,0,1.73) 1.5s !important;
+            transition: cubic-bezier(.6,.17,0,1.73) 1.5s !important;
+
+            transform: translateY(0) !important;
+        }
+
+        #nav{
+            width: 500px;
+            height: 50px;
+
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+
+            right: 2px;
+            top:2px;
+            position: absolute;
+
+            z-index: 10000;
+        }
+        #nav div{
+            cursor: pointer;
+            border-radius: 3px;
+            border-spacing: 3px;
+            border-collapse: collapse;
+        }
+        #nav div:before{
+            /*\00A0 空格*/
+            content: "";
+            display: inline-block;
+            width: 20px;
+        }
+        #nav div:after{
+            content: "";
+            display: inline-block;
+            width: 20px;
+        }
+        .navdiv_active{
+            /*border: 1px solid transparent;*/
+            border: 2px solid #ffffbc;
+        }
+    </style>
+    <script src="js/jquery 2.1.4.js"></script>
+    <script src="js/jquery.fullPage.js"></script>
+    <!--引入jquery.easing.min.js之后，easing参数可选的值就有以下32种：
+		1. linear
+		2. swing
+		3. easeInQuad
+		4. easeOutQuad
+		5. easeInOutQuad
+		6. easeInCubic
+		7. easeOutCubic
+		8. easeInOutCubic
+		9. easeInQuart
+		10. easeOutQuart
+		11. easeInOutQuart
+		12. easeInQuint
+		13. easeOutQuint
+		14. easeInOutQuint
+		15. easeInExpo
+		16. easeOutExpo
+		17. easeInOutExpo
+		18. easeInSine
+		19. easeOutSine
+		20. easeInOutSine
+		21. easeInCirc
+		22. easeOutCirc
+		23. easeInOutCirc
+		24. easeInElastic
+		25. easeOutElastic
+		26. easeInOutElastic
+		27. easeInBack
+		28. easeOutBack
+		29. easeInOutBack
+		30. easeInBounce
+		31. easeOutBounce
+		32. easeInOutBounce-->
+    <script src="http://cdn.staticfile.org/jquery-easing/1.3/jquery.easing.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#fullpageId").fullpage({
+//                sectionsColor: ['#1bbc9b', '#4BBFC3', '#7BAABE', '#f90'],
+                continuousVertical: true,
+                loopBottom:true,
+                navigation:true,
+//                slidesNavigation:true,
+                navigationColor:'green',//没有效果 ，采用自己定义的css样式
+                navigationPosition:'right',
+                navigationTooltips:['第一屏','第二屏','第三屏','第四屏','最后一屏'],
+                //回调函数
+                afterLoad:function (anchorLink ,index) {
+                    //给轮播到的页面加选中样式
+                    $("#nav div[class^=page]").removeClass("navdiv_active");
+                    $("#nav div[class=page"+index+"]").addClass("navdiv_active");
+
+                    if(index==1){
+                        //添加动画效果
+                        $(".section1 h3").delay(500).animate({'bottom':'0'},500,'easeOutExpo');
+                    }
+                    if(index==2){
+                        //添加动画效果
+                        $(".section2 h3").delay(500).animate({'left':'0'},500,'easeOutExpo');
+                    }
+                    if(index==3){
+                        //添加动画效果
+                        $(".section3 h3").delay(500).fadeIn(500);
+                    }
+                    if(index==4){
+                        $(".section4 h3").addClass("h3back");
+                    }
+                    if(index==5){
+                        //添加动画效果
+                        $(".leftdiv").addClass("ballsback");
+                        $(".rightdiv").addClass("ballsback");
+                    }
+                },
+                //复原操作
+                onLeave:function (index,nextIndex,direction) {
+                    if(index==1){
+                        $(".section1 h3").delay(500).animate({'bottom':'-100%'},500,'easeOutExpo');
+                    }
+                    if(index==2){
+                        $(".section2 h3").delay(500).animate({'left':'-100%'},500,'easeOutExpo');
+                    }
+                    if(index==3){
+                        $(".section3 h3").delay(500).fadeOut(500);
+                    }
+                    if(index==4){
+                        $(".section4 h3").removeClass("h3back");
+                    }
+                    if(index==5){
+                        $(".leftdiv").removeClass("ballsback");
+                        $(".rightdiv").removeClass("ballsback");
+                    }
+                }
+
+            });
+            //配合continuousVertical: true  实现垂直方向轮番滚动
+            setInterval(function () {
+                $.fn.fullpage.moveSectionDown()
+            },3000);
+            //配合loopBottom:true  实现slide水平方向轮番滚动
+            setInterval(function () {
+                $.fn.fullpage.moveSlideRight();
+            },1000);
+
+            function init() {
+                //初始化
+                $(".page1").addClass("navdiv_active");
+
+                $("#nav div").click(changepage);
+            }
+
+            init();
+
+            //点击导航事件
+            function changepage(event) {
+                var classname=event.target.classList[0];
+                var index=classname.substr(classname.length-1);
+
+                //关闭自动轮播
+                $.fn.fullpage.setAutoScrolling(false);
+
+                //把当前展示页面调整为点击的对应的页面
+                $("#fullpageId div[class^=section]").removeClass("active");
+                $("#fullpageId>div[class*=section"+index+"]").addClass("active");
+
+                //睡一个轮播间隔的时间
+                $.delay(15000);
+//                sleep(5000);
+
+                //开启自动轮播
+                $.fn.fullpage.setAutoScrolling(true);
+
+                //给点击的导航选中样式
+                $("#nav div[class^=page]").removeClass("navdiv_active");
+                $("#nav div[class=page"+index+"]").addClass("navdiv_active");
+
+            }
+
+            //线程睡一会
+            function sleep(numberMillis) {
+                var now = new Date();
+                var exitTime = now.getTime() + numberMillis;
+                while (exitTime > now) {
+                    now = new Date();
+                }
+            }
+
+            });
+    </script>
+</head>
+<body>
+<div id="nav">
+    <div class="page1">第一屏 </div>
+    <div class="page2">第二屏</div>
+    <div class="page3">第三屏</div>
+    <div class="page4">第四屏</div>
+    <div class="page5">第五屏</div>
+</div>
+<div id="fullpageId">
+    <div class="section section1">
+        <h3>第一屏</h3>
+        <p>fullPage.js — 基本演示</p>
+    </div>
+    <div class="section section2">
+        <h3>第二屏</h3>
+        <div class="slide"><h2>第二屏的第一屏</h2></div>
+        <div class="slide"><h2>第二屏的第二屏</h2></div>
+        <div class="slide"><h2>第二屏的第三屏</h2></div>
+    </div>
+    <div class="section section3">
+        <h3>第三屏</h3>
+    </div>
+    <div class="section section4">
+        <h3>第四屏</h3>
+    </div>
+    <div class="section section5">
+        <h3>第五屏</h3>
+        <p>自定义页面火星撞地球的动画效果</p>
+    <div class="balls">
+        <div class="leftdiv"></div>
+        <div class="rightdiv"></div>
+    </div>
+    </div>
+</div>
+</body>
+</html>

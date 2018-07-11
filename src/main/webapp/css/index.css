@@ -1,0 +1,110 @@
+@charset "utf-8";
+body{
+    overflow-y: hidden;
+    color: #ffffff;
+}
+
+header{
+    background: rgba(0, 0, 0, .5);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 15px;
+
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+}
+
+#menu{
+    display: flex;
+}
+#menu>a{
+    color: #fff;
+    width: 86px;
+    height: 36px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 15px;
+}
+
+.item-active{
+    border: 1px solid #fff !important;
+}
+
+#page0 {
+    background: url("../images/bg1.jpg") no-repeat;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+#page0 div:first-child{
+    transform: translateX(-700px);
+}
+#page0 div:last-child{
+    transform: translateX(700px);
+}
+/**
+#page0:hover div:first-child, #page0:hover div:last-child{
+    transition: .3s cubic-bezier(.24,1.13,.94,1.16);
+    transform: translateX(0);
+}
+*/
+.page0-show{
+    transition: .3s cubic-bezier(.24,1.13,.94,1.16) !important;
+    transform: translateX(0) !important;
+}
+
+#page1 { background: url("../images/bg2.jpg") no-repeat;}
+.wrapper{
+    width: 1000px;
+    /*background-color: yellow;*/
+    margin: 0 auto;
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: space-between;
+    overflow: hidden;
+}
+.box{
+    width: 154px;
+    height: 210px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+.box1{ background-color: #595CA8;}
+.box2{ background-color: #FF9D2E;}
+.box3{ background-color: #01A6DE;}
+.box4{ background-color: #015E91;}
+.box5{ background-color: #1DC128;}
+.box6{ background-color: #01A6DE;}
+
+.box:nth-child(odd){
+    transform: translateY(-800px);
+}
+.box:nth-child(even){
+    transform: translateY(800px);
+}
+
+/*.wrapper:hover .box:nth-child(odd), .wrapper:hover .box:nth-child(even){
+    transition: .3s cubic-bezier(.24,1.13,.94,1.16) !important;
+    transform: translateY(0px);
+}*/
+.page1-show{
+    transition: .3s cubic-bezier(.24,1.13,.94,1.16) !important;
+    transform: translateY(0px) !important;
+}
+
+#page2 {
+    background: url("../images/bg3.jpg") no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
